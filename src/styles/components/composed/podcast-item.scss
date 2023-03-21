@@ -7,6 +7,9 @@
     justify-content: center;
     position: relative;
     margin: 5px 5px 128px;
+    cursor: pointer;
+    transition: transform .3s ease-out;
+
 
     img {
         top: 0;
@@ -44,4 +47,8 @@
             font-weight: bold;
         }
     }
+}
+
+.podcast-item-container:hover {
+    transform: translate(0, -5px);
 }
