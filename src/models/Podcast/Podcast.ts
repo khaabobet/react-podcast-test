@@ -4,3 +4,8 @@ export interface Podcast {
   author: string;
   id: string;
 }
+
+export interface PodcastSave {
+  date: Date;
+  podcastList: Podcast[];
+}
