@@ -1,0 +1,47 @@
+.podcast-item-container {
+    flex: 1 0 21%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 5px 5px 128px;
+
+    img {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        aspect-ratio: 1;
+        width: 128px;
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid #f3f3f3
+    }
+
+    .info-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 128px;
+        width: 70%;
+        border: 1px solid lightgrey;
+        border-radius: 4px;
+        padding-bottom: 12px;
+
+        span {
+            text-align: center;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;  // <- you can change rows number
+            -webkit-box-orient: vertical;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .name {
+            font-weight: bold;
+        }
+    }
+}
