@@ -16,7 +16,7 @@
         width: 128px;
         position: absolute;
         border-radius: 50%;
-        border: 1px solid #f3f3f3
+        border: 1px solid #c3c3c3
     }
 
     .info-container {
@@ -25,10 +25,10 @@
         flex-direction: column;
         justify-content: flex-end;
         height: 128px;
-        width: 70%;
+        width: 256px;
         border: 1px solid lightgrey;
         border-radius: 4px;
-        padding-bottom: 12px;
+        padding: 0 12px 12px 12px;
 
         span {
             text-align: center;

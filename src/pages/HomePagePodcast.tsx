@@ -25,7 +25,7 @@ export const HomePagePodcast = () => {
 
   useEffect(() => {
     getPodcastList();
-  }, [])
+  }, []);
 
   return (
       <div className={'home-page-podcast-container'}>
