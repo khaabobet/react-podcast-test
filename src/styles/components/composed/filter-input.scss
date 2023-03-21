@@ -1,0 +1,13 @@
+.filter-input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 100%;
+  span {
+    padding: 4px;
+    border-radius: 4px;
+    margin-right: 12px;
+    background-color: steelblue;
+    color: white;
+  }
+}
