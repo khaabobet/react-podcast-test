@@ -1,0 +1,10 @@
+.home-page-podcast-container {
+  display: flex;
+  flex-direction: column;
+
+  .title-container {
+    h2 {
+      color: steelblue;
+    }
+  }
+}
