@@ -30,11 +30,13 @@ export const HomePagePodcast = (props: props) => {
                 podcasts: podcastsResponse,
                 podcastsFiltered: podcastsResponse,
               }));
-              const podcastListSave: PodcastSave = {
-                date: new Date(),
-                podcastList: podcastsResponse,
-              };
-              localStorage.setItem(PODCAST_LIST_SAVE_KEY, JSON.stringify(podcastListSave));
+              if (podcastsResponse.length > 0) {
+                const podcastListSave: PodcastSave = {
+                  date: new Date(),
+                  podcastList: podcastsResponse,
+                };
+                localStorage.setItem(PODCAST_LIST_SAVE_KEY, JSON.stringify(podcastListSave));
+              }
 
               props.setLoading(false);
             }

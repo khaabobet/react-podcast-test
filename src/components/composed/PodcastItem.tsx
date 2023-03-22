@@ -36,12 +36,14 @@ export const PodcastItem = (props: props) => {
   const getPodcastDetailsFromApi = (podcastLocalStoreKey: string) => {
     setLoadingState();
     PodcastAPI.getPodcastDetailsList(props.podcast.id).then((podcastDetailsList) => {
-      const podcastDetailsSave: PodcastEpisodeSave = {
-        date: new Date(),
-        podcastDetailsList: podcastDetailsList,
-      };
+      if (podcastDetailsList.length > 0) {
+        const podcastDetailsSave: PodcastEpisodeSave = {
+          date: new Date(),
+          podcastDetailsList: podcastDetailsList,
+        };
 
-      localStorage.setItem(podcastLocalStoreKey, JSON.stringify(podcastDetailsSave));
+        localStorage.setItem(podcastLocalStoreKey, JSON.stringify(podcastDetailsSave));
+      }
       setSelectedPodcastInState(podcastDetailsList);
     });
   };
