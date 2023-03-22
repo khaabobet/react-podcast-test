@@ -44,8 +44,19 @@
       .description{
         margin-top: 2px;
         font-style: italic;
+        display: -webkit-box;
+        -webkit-line-clamp: 10;
+        -webkit-box-orient: vertical;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
+  }
+
+  .podcast-details-episode-player-container {
+    flex: .6;
+    margin-right: 12px;
   }
 
   .podcast-details-episodes-container {

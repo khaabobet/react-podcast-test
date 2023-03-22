@@ -1,0 +1,22 @@
+.podcast-player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #d2d0d0;
+  border-radius: 8px;
+  padding: 12px;
+
+  .title {
+    font-size: larger;
+    font-weight: bold;
+    margin: 12px
+  }
+  .description {
+    font-size: initial;
+    margin: 12px
+  }
+
+  audio {
+    width: 100%;
+  }
+}

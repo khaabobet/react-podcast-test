@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {PodcastEpisode, PodcastInfoSelected} from "../models/Podcast/Podcast";
+import {PodcastPlayer} from "../components/composed/PodcastPlayer";
 
 interface props {
   podcastInfoSelected: PodcastInfoSelected | null
@@ -77,8 +78,6 @@ export const PodcastDetailsPage = (props: props) => {
     )
   };
 
-  const renderEpisodePlayer = () => (<div></div>)
-
   const renderPodcastHead = () => (
       <div className={'podcast-details-info-container'}>
         <div className={'podcast-details-info-delimiter'}>
@@ -94,7 +93,11 @@ export const PodcastDetailsPage = (props: props) => {
   return (
       <div className={'podcast-details-page-container'}>
         {renderPodcastHead()}
-        {state.selectedEpisode ? renderEpisodePlayer() : renderEpisodeList()}
+        {state.selectedEpisode ? (
+            <div className={'podcast-details-episode-player-container'}>
+              <PodcastPlayer episode={state.selectedEpisode}/>
+            </div>
+        ) : renderEpisodeList()}
       </div>
   )
 }
