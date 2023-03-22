@@ -6,7 +6,7 @@ export interface Podcast {
   summary: string;
 }
 
-export interface PodcastDetails {
+export interface PodcastEpisode {
   episodeURL: string;
   title: string;
   description: string;
@@ -19,12 +19,12 @@ export interface PodcastSave {
   podcastList: Podcast[];
 }
 
-export interface PodcastDetailsSave {
+export interface PodcastEpisodeSave {
   date: Date;
-  podcastDetailsList: PodcastDetails[]
+  podcastDetailsList: PodcastEpisode[]
 }
 
 export interface PodcastInfoSelected {
   podcast: Podcast,
-  podcastDetail: PodcastDetails[]
+  podcastDetail: PodcastEpisode[]
 }

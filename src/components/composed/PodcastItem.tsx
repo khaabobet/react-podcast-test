@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Podcast, PodcastDetails, PodcastDetailsSave} from "../../models/Podcast/Podcast";
+import {Podcast, PodcastEpisode, PodcastEpisodeSave} from "../../models/Podcast/Podcast";
 import PodcastAPI from "../../services/API/PodcastAPI";
 import {PageStateContext} from "../../context/PageState/PageStateContext";
 import {PageState, PageStates} from "../../models/PageState/PageState";
@@ -11,7 +11,7 @@ interface props {
 export const PodcastItem = (props: props) => {
   const pageStateContext = useContext(PageStateContext);
 
-  const setSelectedPodcastInState = (podcastDetailsList: PodcastDetails[]) => {
+  const setSelectedPodcastInState = (podcastDetailsList: PodcastEpisode[]) => {
     const nextPageState: PageState = {
       state: PageStates.podcastState,
       podcastInfoSelected: {
@@ -25,7 +25,7 @@ export const PodcastItem = (props: props) => {
 
   const getPodcastDetailsFromApi = (podcastLocalStoreKey: string) => {
     PodcastAPI.getPodcastDetailsList(props.podcast.id).then((podcastDetailsList) => {
-      const podcastDetailsSave: PodcastDetailsSave = {
+      const podcastDetailsSave: PodcastEpisodeSave = {
         date: new Date(),
         podcastDetailsList: podcastDetailsList,
       };
@@ -38,7 +38,7 @@ export const PodcastItem = (props: props) => {
   const handleOnClickPodcast = () => {
     const PODCAST_DETAILS_SAVE_KEY = "PODCAST_DETAILS_SAVE_" + props.podcast.id;
     const podcastDetailsSave = localStorage.getItem(PODCAST_DETAILS_SAVE_KEY);
-    const podcastDetailsSaveJSON: PodcastDetailsSave = podcastDetailsSave && JSON.parse(podcastDetailsSave);
+    const podcastDetailsSaveJSON: PodcastEpisodeSave = podcastDetailsSave && JSON.parse(podcastDetailsSave);
     const oneDay = 60 * 60 * 24 * 1000;
     const todayInMillis = new Date().getTime();
     if (!podcastDetailsSave) {

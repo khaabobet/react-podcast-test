@@ -1,4 +1,4 @@
-import {Podcast, PodcastDetails} from "../../models/Podcast/Podcast";
+import {Podcast, PodcastEpisode} from "../../models/Podcast/Podcast";
 import {podcastDetailsListMapper, podcastMapper} from "./MapperService";
 
 const getAllOriginUrl = (url: string): string => {
@@ -23,7 +23,7 @@ const getPodcastList = (): Promise<Podcast[]> => {
       });
 }
 
-const getPodcastDetailsList = (id: string): Promise<PodcastDetails[]> => {
+const getPodcastDetailsList = (id: string): Promise<PodcastEpisode[]> => {
   return fetch(getAllOriginUrl(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20`))
       .then(response => {
         if (response.ok) {

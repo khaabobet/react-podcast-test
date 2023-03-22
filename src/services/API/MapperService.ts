@@ -1,4 +1,4 @@
-import {Podcast, PodcastDetails} from "../../models/Podcast/Podcast";
+import {Podcast, PodcastEpisode} from "../../models/Podcast/Podcast";
 
 const getBiggerImage = (element: any) => {
   let image: string | null = null
@@ -30,8 +30,8 @@ export const podcastMapper = (entry: any): Podcast[] => {
   return podcasts;
 }
 
-export const podcastDetailsListMapper = (results: any[]): PodcastDetails[] => {
-  const podcastDetailsList: PodcastDetails[] = [];
+export const podcastDetailsListMapper = (results: any[]): PodcastEpisode[] => {
+  const podcastDetailsList: PodcastEpisode[] = [];
   results.forEach((element, index) => {
     if (index == 0) return;
     podcastDetailsList.push({
