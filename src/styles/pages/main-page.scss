@@ -1,5 +1,8 @@
 .title-container {
+  display: flex;
+  flex-direction: row;
   margin: 24px;
+  justify-content: space-between;
   border-bottom: 1px solid #f3f3f3;
   h2 {
     cursor: pointer ;

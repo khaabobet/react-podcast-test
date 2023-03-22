@@ -3,7 +3,7 @@ import {PodcastEpisode, PodcastInfoSelected} from "../models/Podcast/Podcast";
 import {PodcastPlayer} from "../components/composed/PodcastPlayer";
 
 interface props {
-  podcastInfoSelected: PodcastInfoSelected | null
+  podcastInfoSelected: PodcastInfoSelected | null;
 }
 
 interface state {

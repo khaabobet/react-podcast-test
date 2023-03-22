@@ -17,13 +17,24 @@ export const PodcastItem = (props: props) => {
       podcastInfoSelected: {
         podcast: props.podcast,
         podcastDetail: podcastDetailsList,
-      }
+      },
+      loading: false
+    };
+
+    pageStateContext.changePageState(nextPageState);
+  }
+
+  const setLoadingState = () => {
+    const nextPageState: PageState = {
+      ...pageStateContext.pageState,
+      loading: true
     };
 
     pageStateContext.changePageState(nextPageState);
   }
 
   const getPodcastDetailsFromApi = (podcastLocalStoreKey: string) => {
+    setLoadingState();
     PodcastAPI.getPodcastDetailsList(props.podcast.id).then((podcastDetailsList) => {
       const podcastDetailsSave: PodcastEpisodeSave = {
         date: new Date(),

@@ -9,7 +9,11 @@ interface state {
   podcastsFiltered: Podcast[],
 }
 
-export const HomePagePodcast = () => {
+interface props {
+  setLoading: (isLoading: boolean) => void;
+}
+
+export const HomePagePodcast = (props: props) => {
   const PODCAST_LIST_SAVE_KEY = "PODCAST_LIST_SAVE";
   const initialState: state = {
     podcasts: [],
@@ -18,6 +22,7 @@ export const HomePagePodcast = () => {
   const [state, setState] = useState<state>(initialState);
 
   const getPodcastListFromApi = () => {
+    props.setLoading(true);
     PodcastAPI.getPodcastList()
         .then(podcastsResponse => {
               setState((prevState) => ({
@@ -30,6 +35,8 @@ export const HomePagePodcast = () => {
                 podcastList: podcastsResponse,
               };
               localStorage.setItem(PODCAST_LIST_SAVE_KEY, JSON.stringify(podcastListSave));
+
+              props.setLoading(false);
             }
         );
   }

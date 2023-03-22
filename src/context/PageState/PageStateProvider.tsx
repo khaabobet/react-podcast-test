@@ -11,6 +11,7 @@ interface props {
 const INITIAL_STATE: PageState = {
   state: PageStates.mainState,
   podcastInfoSelected: null,
+  loading: false,
 }
 
 export const PageStateProvider = ({children}: props) => {
