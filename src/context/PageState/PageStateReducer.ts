@@ -1,9 +1,13 @@
 import {PageState} from "../../models/PageState/PageState";
 
-export const PageStateReducer = (state: PageState, action: {
-  type: 'changePageState',
-  payload: PageState
-}): PageState => {
+interface ChangePageStateAction {
+  type: 'changePageState';
+  payload: PageState;
+}
+
+export const PageStateReducer = (
+    state: PageState,
+    action: ChangePageStateAction): PageState => {
   switch (action.type) {
     case "changePageState":
       return action.payload;

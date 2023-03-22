@@ -9,7 +9,8 @@ interface props {
 
 
 const INITIAL_STATE: PageState = {
-  state: PageStates.mainState
+  state: PageStates.mainState,
+  podcastInfoSelected: null,
 }
 
 export const PageStateProvider = ({children}: props) => {
@@ -17,7 +18,7 @@ export const PageStateProvider = ({children}: props) => {
 
   const changePageState = (pageState: PageState) => {
     dispatch({type: "changePageState", payload: pageState});
-  }
+  };
 
   return (
       <PageStateContext.Provider value={{

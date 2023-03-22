@@ -1,5 +1,8 @@
+import {PodcastInfoSelected} from "../Podcast/Podcast";
+
 export interface PageState {
-  state: MAIN_STATE | PODCAST_STATE | PODCAST_EPISODE
+  state: MAIN_STATE | PODCAST_STATE | PODCAST_EPISODE,
+  podcastInfoSelected: PodcastInfoSelected | null,
 }
 
 export type MAIN_STATE = 0;
