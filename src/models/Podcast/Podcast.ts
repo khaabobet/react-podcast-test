@@ -19,6 +19,11 @@ export interface PodcastSave {
   podcastList: Podcast[];
 }
 
+export interface PodcastDetailsSave {
+  date: Date;
+  podcastDetailsList: PodcastDetails[]
+}
+
 export interface PodcastInfoSelected {
   podcast: Podcast,
   podcastDetail: PodcastDetails[]

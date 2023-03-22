@@ -1,11 +1,20 @@
 import React, {useContext} from 'react';
 import {PageStateContext} from "../context/PageState/PageStateContext";
-import {PageStates} from "../models/PageState/PageState";
+import {PageState, PageStates} from "../models/PageState/PageState";
 import {HomePagePodcast} from "./HomePagePodcast";
 import {PodcastDetailsPage} from "./PodcastDetailsPage";
 
 export const MainPage = () => {
   const pageStateContext = useContext(PageStateContext);
+
+  const goHomePage = () => {
+    const nextPageState: PageState = {
+      state: PageStates.mainState,
+      podcastInfoSelected: null,
+    };
+
+    pageStateContext.changePageState(nextPageState);
+  };
 
   const renderStates = () => {
     switch (pageStateContext.pageState.state) {
@@ -19,7 +28,10 @@ export const MainPage = () => {
   }
 
   return (
-      <div>
+      <div className={'main-page-container'}>
+        <div className={'title-container'}>
+          <h2 onClick={goHomePage}>{'Podcaster'}</h2>
+        </div>
         {renderStates()}
       </div>
   );

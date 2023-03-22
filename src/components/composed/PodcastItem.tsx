@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Podcast} from "../../models/Podcast/Podcast";
+import {Podcast, PodcastDetails, PodcastDetailsSave} from "../../models/Podcast/Podcast";
 import PodcastAPI from "../../services/API/PodcastAPI";
 import {PageStateContext} from "../../context/PageState/PageStateContext";
 import {PageState, PageStates} from "../../models/PageState/PageState";
@@ -10,18 +10,50 @@ interface props {
 
 export const PodcastItem = (props: props) => {
   const pageStateContext = useContext(PageStateContext);
-  const handleOnClickPodcast = () => {
-    PodcastAPI.getPodcastDetailsList(props.podcast.id).then((podcastDetailsList) => {
-      const nextPageState: PageState = {
-        state: PageStates.podcastState,
-        podcastInfoSelected: {
-          podcast: props.podcast,
-          podcastDetail: podcastDetailsList
-        }
+
+  const setSelectedPodcastInState = (podcastDetailsList: PodcastDetails[]) => {
+    const nextPageState: PageState = {
+      state: PageStates.podcastState,
+      podcastInfoSelected: {
+        podcast: props.podcast,
+        podcastDetail: podcastDetailsList,
       }
-      pageStateContext.changePageState(nextPageState);
-    });
+    };
+
+    pageStateContext.changePageState(nextPageState);
   }
+
+  const getPodcastDetailsFromApi = (podcastLocalStoreKey: string) => {
+    PodcastAPI.getPodcastDetailsList(props.podcast.id).then((podcastDetailsList) => {
+      const podcastDetailsSave: PodcastDetailsSave = {
+        date: new Date(),
+        podcastDetailsList: podcastDetailsList,
+      };
+
+      localStorage.setItem(podcastLocalStoreKey, JSON.stringify(podcastDetailsSave));
+      setSelectedPodcastInState(podcastDetailsList);
+    });
+  };
+
+  const handleOnClickPodcast = () => {
+    const PODCAST_DETAILS_SAVE_KEY = "PODCAST_DETAILS_SAVE_" + props.podcast.id;
+    const podcastDetailsSave = localStorage.getItem(PODCAST_DETAILS_SAVE_KEY);
+    const podcastDetailsSaveJSON: PodcastDetailsSave = podcastDetailsSave && JSON.parse(podcastDetailsSave);
+    const oneDay = 60 * 60 * 24 * 1000;
+    const todayInMillis = new Date().getTime();
+    if (!podcastDetailsSave) {
+      getPodcastDetailsFromApi(PODCAST_DETAILS_SAVE_KEY);
+      return;
+    }
+
+    const hasPassedOneDay = todayInMillis - new Date(podcastDetailsSaveJSON.date).getTime() > oneDay;
+    if (hasPassedOneDay) {
+      getPodcastDetailsFromApi(PODCAST_DETAILS_SAVE_KEY);
+      return;
+    }
+
+    setSelectedPodcastInState(podcastDetailsSaveJSON.podcastDetailsList);
+  };
 
   return (
       <div className={'podcast-item-container'} onClick={handleOnClickPodcast}>

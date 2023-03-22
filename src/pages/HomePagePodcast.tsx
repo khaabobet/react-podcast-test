@@ -10,28 +10,16 @@ interface state {
 }
 
 export const HomePagePodcast = () => {
+  const PODCAST_LIST_SAVE_KEY = "PODCAST_LIST_SAVE";
   const initialState: state = {
     podcasts: [],
     podcastsFiltered: [],
   }
   const [state, setState] = useState<state>(initialState);
 
-  const getPodcastList = () => {
-    const PODCAST_LIST_SAVE_KEY = "PODCAST_LIST_SAVE";
-    const podcastSave = localStorage.getItem(PODCAST_LIST_SAVE_KEY);
-    const podcastSaveJSON: PodcastSave = podcastSave && JSON.parse(podcastSave);
-    const oneDay = 60 * 60 * 24 * 1000;
-    const todayInMillis = new Date().getTime();
-    const hasPassedOneDay = todayInMillis - new Date(podcastSaveJSON.date).getTime() > oneDay;
-    if (!hasPassedOneDay) {
-      setState((prevState) => ({
-        ...prevState,
-        podcasts: podcastSaveJSON.podcastList,
-        podcastsFiltered: podcastSaveJSON.podcastList,
-      }));
-    } else {
-      PodcastAPI.getPodcastList()
-          .then(podcastsResponse => {
+  const getPodcastListFromApi = () => {
+    PodcastAPI.getPodcastList()
+        .then(podcastsResponse => {
               setState((prevState) => ({
                 ...prevState,
                 podcasts: podcastsResponse,
@@ -44,7 +32,28 @@ export const HomePagePodcast = () => {
               localStorage.setItem(PODCAST_LIST_SAVE_KEY, JSON.stringify(podcastListSave));
             }
         );
+  }
+
+  const getPodcastList = () => {
+    const podcastSave = localStorage.getItem(PODCAST_LIST_SAVE_KEY);
+    const podcastSaveJSON: PodcastSave | null = podcastSave && JSON.parse(podcastSave);
+    const oneDay = 60 * 60 * 24 * 1000;
+    const todayInMillis = new Date().getTime();
+    if (!podcastSaveJSON) {
+      getPodcastListFromApi();
+      return;
     }
+    const hasPassedOneDay = todayInMillis - new Date(podcastSaveJSON.date).getTime() > oneDay;
+    if (hasPassedOneDay) {
+      getPodcastListFromApi();
+      return;
+    }
+    setState((prevState) => ({
+      ...prevState,
+      podcasts: podcastSaveJSON.podcastList,
+      podcastsFiltered: podcastSaveJSON.podcastList,
+    }));
+
   }
 
   useEffect(() => {
@@ -60,9 +69,6 @@ export const HomePagePodcast = () => {
 
   return (
       <div className={'home-page-podcast-container'}>
-        <div className={'title-container'}>
-          <h2>{'Podcaster'}</h2>
-        </div>
         <div className={'filter-container'}>
           <FilterInput data={state.podcasts} filteredNumber={state.podcastsFiltered.length} onFilterData={onFilterHandler}/>
         </div>
